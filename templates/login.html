@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Login - ShopMate{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <i data-feather="shopping-bag" class="mb-3" style="width: 48px; height: 48px;"></i>
+                    <h2 class="card-title">Welcome to ShopMate</h2>
+                    <p class="text-muted">Your smart shopping companion - enter as guest to start monitoring products</p>
+                </div>
+                
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">
+                            <i data-feather="user" class="me-2"></i>
+                            Username
+                        </label>
+                        <input type="text" class="form-control" id="username" name="username" 
+                               placeholder="Enter any username" required>
+                        <div class="form-text">
+                            <i data-feather="info" class="me-1"></i>
+                            This is a guest login - use any username you prefer
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i data-feather="log-in" class="me-2"></i>
+                        Login as Guest
+                    </button>
+                </form>
+                
+                <div class="mt-4 p-3 bg-secondary rounded">
+                    <h6 class="mb-2">
+                        <i data-feather="info" class="me-2"></i>
+                        How it works:
+                    </h6>
+                    <ul class="small mb-0">
+                        <li>Monitor product availability and prices</li>
+                        <li>Get notified via email or WhatsApp</li>
+                        <li>Track multiple products simultaneously</li>
+                        <li>Set custom conditions for alerts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

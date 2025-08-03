@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - ShopMate{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>
+        <i data-feather="home" class="me-2"></i>
+        Dashboard
+    </h1>
+    <a href="{{ url_for('monitor') }}" class="btn btn-primary">
+        <i data-feather="plus" class="me-2"></i>
+        Add New Monitor
+    </a>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Active Monitors</h5>
+                        <h2 class="mb-0">{{ monitors|length }}</h2>
+                    </div>
+                    <i data-feather="monitor" style="width: 48px; height: 48px;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Notification Preference</h5>
+                        <p class="mb-0">
+                            {% if user.notification_preference == 'email_whatsapp' %}
+                                Email + WhatsApp
+                            {% else %}
+                                Email Only
+                            {% endif %}
+                        </p>
+                    </div>
+                    <i data-feather="bell" style="width: 48px; height: 48px;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Total Notifications</h5>
+                        <h2 class="mb-0">
+                            {% set total_notifications = 0 %}
+                            {% for monitor in monitors %}
+                                {% set total_notifications = total_notifications + monitor.notifications|length %}
+                            {% endfor %}
+                            {{ total_notifications }}
+                        </h2>
+                    </div>
+                    <i data-feather="mail" style="width: 48px; height: 48px;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if monitors %}
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">
+                <i data-feather="list" class="me-2"></i>
+                Your Product Monitors
+            </h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Product</th>
+                            <th>Conditions</th>
+                            <th>Status</th>
+                            <th>Last Checked</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for monitor in monitors %}
+                        <tr>
+                            <td>
+                                <div>
+                                    <h6 class="mb-1">{{ monitor.product_name }}</h6>
+                                    <small class="text-muted">{{ monitor.product_price }}</small>
+                                    <br>
+                                    <small class="text-muted">
+                                        <a href="{{ monitor.product_url }}" target="_blank" class="text-decoration-none">
+                                            <i data-feather="external-link" class="me-1" style="width: 12px; height: 12px;"></i>
+                                            View Product
+                                        </a>
+                                    </small>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-wrap gap-1">
+                                    {% if monitor.check_stock %}
+                                        <span class="badge bg-primary">Stock</span>
+                                    {% endif %}
+                                    {% if monitor.check_size %}
+                                        <span class="badge bg-secondary">Size: {{ monitor.desired_size }}</span>
+                                    {% endif %}
+                                    {% if monitor.check_delivery %}
+                                        <span class="badge bg-info">Delivery</span>
+                                    {% endif %}
+                                    {% if monitor.check_price %}
+                                        <span class="badge bg-success">Price: ${{ monitor.target_price }}</span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                {% if monitor.is_active %}
+                                    <span class="badge bg-success">
+                                        <i data-feather="activity" class="me-1" style="width: 12px; height: 12px;"></i>
+                                        Active
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-secondary">
+                                        <i data-feather="pause" class="me-1" style="width: 12px; height: 12px;"></i>
+                                        Stopped
+                                    </span>
+                                {% endif %}
+                                <br>
+                                <small class="text-muted">{{ monitor.last_status or 'No status' }}</small>
+                            </td>
+                            <td>
+                                {% if monitor.last_checked %}
+                                    <small>{{ monitor.last_checked.strftime('%Y-%m-%d %H:%M') }}</small>
+                                {% else %}
+                                    <small class="text-muted">Never</small>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    {% if monitor.is_active %}
+                                        <a href="{{ url_for('stop_monitor', monitor_id=monitor.id) }}" 
+                                           class="btn btn-outline-warning" title="Stop Monitoring">
+                                            <i data-feather="pause" style="width: 16px; height: 16px;"></i>
+                                        </a>
+                                    {% endif %}
+                                    <a href="{{ url_for('delete_monitor', monitor_id=monitor.id) }}" 
+                                       class="btn btn-outline-danger" title="Delete Monitor"
+                                       onclick="return confirm('Are you sure you want to delete this monitor?')">
+                                        <i data-feather="trash-2" style="width: 16px; height: 16px;"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="text-center py-5">
+        <i data-feather="monitor" class="mb-3 text-muted" style="width: 64px; height: 64px;"></i>
+        <h4 class="text-muted">No monitors yet</h4>
+        <p class="text-muted">Start monitoring your first product to get notifications when conditions are met.</p>
+        <a href="{{ url_for('monitor') }}" class="btn btn-primary">
+            <i data-feather="plus" class="me-2"></i>
+            Add Your First Monitor
+        </a>
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,237 @@
+/* ShopMate - Custom Styles */
+
+/* Custom enhancements for dark theme consistency */
+:root {
+    --shopmate-primary: #0d6efd;
+    --shopmate-success: #198754;
+    --shopmate-warning: #ffc107;
+    --shopmate-danger: #dc3545;
+}
+
+/* Smooth transitions */
+* {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Card hover effects */
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
+}
+
+/* Navigation enhancements */
+.navbar-brand {
+    font-weight: 600;
+}
+
+.navbar-nav .nav-link {
+    border-radius: 0.375rem;
+    margin: 0 0.25rem;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Form enhancements */
+.form-control:focus {
+    border-color: var(--shopmate-primary);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: var(--shopmate-primary);
+    border-color: var(--shopmate-primary);
+}
+
+.form-check-label {
+    cursor: pointer;
+}
+
+/* Button enhancements */
+.btn {
+    border-radius: 0.5rem;
+    font-weight: 500;
+}
+
+.btn-group-sm .btn {
+    border-radius: 0.375rem;
+}
+
+/* Badge enhancements */
+.badge {
+    font-weight: 500;
+    padding: 0.5em 0.75em;
+}
+
+/* Table enhancements */
+.table > :not(caption) > * > * {
+    padding: 1rem 0.75rem;
+}
+
+.table-hover > tbody > tr:hover > * {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Alert enhancements */
+.alert {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.alert-dismissible .btn-close {
+    opacity: 0.8;
+}
+
+.alert-dismissible .btn-close:hover {
+    opacity: 1;
+}
+
+/* Loading spinner */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Status indicators */
+.status-active {
+    color: var(--shopmate-success);
+}
+
+.status-inactive {
+    color: var(--bs-secondary);
+}
+
+.status-error {
+    color: var(--shopmate-danger);
+}
+
+/* Icon alignment */
+[data-feather] {
+    vertical-align: text-bottom;
+}
+
+/* Custom spacing */
+.gap-1 {
+    gap: 0.25rem;
+}
+
+/* Empty state styling */
+.text-center.py-5 {
+    padding: 3rem 1rem;
+}
+
+.text-center.py-5 [data-feather] {
+    opacity: 0.5;
+}
+
+/* Form section dividers */
+.card-body h5 {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .btn-group-sm .btn {
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+    
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.25em 0.5em;
+    }
+}
+
+/* Animation for notifications */
+@keyframes slideInDown {
+    from {
+        transform: translate3d(0, -100%, 0);
+        visibility: visible;
+    }
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.alert {
+    animation: slideInDown 0.5s ease-out;
+}
+
+/* Custom checkbox and radio styling */
+.form-check-input {
+    width: 1.25em;
+    height: 1.25em;
+}
+
+.form-check-label {
+    padding-left: 0.5rem;
+    line-height: 1.4;
+}
+
+/* URL link styling */
+.table a {
+    color: var(--bs-info);
+    text-decoration: none;
+}
+
+.table a:hover {
+    color: var(--bs-info);
+    text-decoration: underline;
+}
+
+/* Footer styling */
+footer {
+    margin-top: auto;
+}
+
+/* Form validation states */
+.is-valid {
+    border-color: var(--shopmate-success);
+}
+
+.is-invalid {
+    border-color: var(--shopmate-danger);
+}
+
+/* Dashboard cards */
+.card.bg-primary,
+.card.bg-success,
+.card.bg-info {
+    border: none;
+}
+
+.card.bg-primary:hover,
+.card.bg-success:hover,
+.card.bg-info:hover {
+    transform: translateY(-2px);
+}
+
+/* Monitor form conditional fields */
+#size_input,
+#price_input,
+#phone_input {
+    margin-left: 2rem;
+}
+
+/* Product URL display in table */
+.table td:first-child {
+    max-width: 300px;
+}
+
+.table td:first-child small a {
+    word-break: break-all;
+}
